@@ -26,15 +26,17 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 	//		CRUD operations for admin
 
-	Route::view('/edit/{id}', 'edit-book')->name('edit-book');
-	Route::get('/create/{author_name?}', function ($author_name = null) {
-		return view('create-book', compact('author_name'));
-	})->name('create-book');
-	Route::get('/authors', [BookController::class, 'authors'])->name('authors');
-	Route::get('/author/{id}', [BookController::class, 'showAuthor'])->name('author');
-	Route::post('/create-book', [BookController::class, 'createBook'])->name('createBook');
-	Route::get('/delete-book/{id}', [BookController::class, 'deleteBook'])->name('delete-book');
-	Route::get('/edit-book/{id}', [BookController::class, 'editBook'])->name('editBook');
+	Route::group(['middleware' => 'can:admin'], function () {
+		Route::view('/edit/{id}', 'edit-book')->name('edit-book');
+		Route::get('/create/{author_name?}', function ($author_name = null) {
+			return view('create-book', compact('author_name'));
+		})->name('create-book');
+		Route::get('/authors', [BookController::class, 'authors'])->name('authors');
+		Route::get('/author/{id}', [BookController::class, 'showAuthor'])->name('author');
+		Route::post('/create-book', [BookController::class, 'createBook'])->name('createBook');
+		Route::get('/delete-book/{id}', [BookController::class, 'deleteBook'])->name('delete-book');
+		Route::get('/edit-book/{id}', [BookController::class, 'editBook'])->name('editBook');
+	});
 
 //		CRUD operations for users
 
