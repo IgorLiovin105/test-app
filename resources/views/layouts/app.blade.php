@@ -34,6 +34,15 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
+				<!-- Left Side Of Navbar -->
+				<ul class="navbar-nav me-auto">
+					@can('admin')
+						<li class="nav-item">
+							<a href="{{ route('authors') }}" class="nav-link">Список авторов</a>
+						</li>
+					@endcan
+				</ul>
+
 				<!-- Right Side Of Navbar -->
 				<ul class="navbar-nav ms-auto">
 					<!-- Authentication Links -->

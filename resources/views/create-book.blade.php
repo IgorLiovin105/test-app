@@ -10,7 +10,7 @@
 		</div>
 		<div class="mb-3">
 			<label for="author" class="form-label">Введите имя автора</label>
-			<input type="text" class="form-control" id="author" name="author">
+			<input type="text" class="form-control" id="author" name="author" value="{{ $author_name }}">
 		</div>
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>

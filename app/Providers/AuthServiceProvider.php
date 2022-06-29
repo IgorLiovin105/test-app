@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Book;
+use App\Models\Comment;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Auth\Access\Response;
@@ -30,6 +31,13 @@ class AuthServiceProvider extends ServiceProvider
 
 		Gate::define('admin', function (User $user) {
 			if($user->email == 'admin@test.com') {
+				return Response::allow();
+			}
+			return Response::deny();
+		});
+
+		Gate::define('delete_comment', function (User $user, Comment $comment) {
+			if($user->id == $comment->user_id || $user->email == 'admin@test.com') {
 				return Response::allow();
 			}
 			return Response::deny();

@@ -30,10 +30,22 @@ class BookController extends Controller
 			return back();
 
 		$author = Author::firstOrCreate(['name' => $request->input('author')]);
-		$book = Book::create([
+		Book::create([
 			'name' => $request->input('name'),
 			'author_id' => $author->id
 		]);
 		return redirect('/');
+	}
+
+	public function authors()
+	{
+		$authors = Author::withCount('books')->get();
+		return view('authors', compact('authors'));
+	}
+
+	public function showAuthor($id)
+	{
+		$author = Author::find($id);
+		return view('show-author', compact('author'));
 	}
 }
